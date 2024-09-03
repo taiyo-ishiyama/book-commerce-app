@@ -6,7 +6,7 @@ import { nextAuthOptions } from "./lib/next-auth/options";
 
 // eslint-disable-next-line @next/next/no-async-client-component
 export default async function Home() {
-  const { contents } = await getAllBooks();
+  const { contents } = await getAllBooks(); // ISR
   const session = await getServerSession(nextAuthOptions);
   const user = session?.user as User;
 
@@ -32,7 +32,7 @@ export default async function Home() {
           Book Commerce
         </h2>
         {contents.map((book: BookType) => (
-          <Book key={book.id} book={book} isPurchased={purchasedBookIds.includes(book.id)}/>
+          <Book key={book.id} book={book} isPurchased={purchasedBookIds.includes(book.id)} user={user}/>
         ))}
       </main>
     </>
